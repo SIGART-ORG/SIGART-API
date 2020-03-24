@@ -2,6 +2,36 @@ const express = require( 'express' );
 const router = express.Router();
 const database = require( '../database' );
 const SQLQuery = require( '../sql/sql' );
+const father = require( './father' );
+
+const bodyParser = require( 'body-parser' );
+const jwt = require( 'jsonwebtoken' );
+const config = require( '../configs/config' );
+const app = express();
+
+let token = '';
+
+app.set( 'llave', config.llave );
+app.use( bodyParser.urlencoded({ extended: true }) );
+app.use( bodyParser.json() );
+
+router.get( '/autenticar', ( req, res ) => {
+    console.log( 'dddd' );
+    if( req.query.user === 'julio' && req.query.password === '123456' ) {
+        const payload = {
+            check: true
+        };
+
+        token = jwt.sign( payload, app.get( 'llave' ), {
+            expiresIn: 1440
+        });
+
+        res.json({
+            msg: 'Autenticación correcta',
+            token: token
+        })
+    }
+});
 
 const path = '/customer/notification/';
 
@@ -9,7 +39,7 @@ router.get( '/', ( req, res ) => {
      res.json( 'Bienvenido al api.' );
 });
 
-router.get( path, ( req, res ) => {
+router.get( path, father.routersProtecteds, ( req, res ) => {
     database.query( SQLQuery.customer.all, [1], ( err, rows, fields ) => {
         if( !err ) {
             res.json( rows );

@@ -51,14 +51,12 @@ io.on( 'connection', ( socket ) => {
     function message( admin, event, data ) {
         io.sockets.to( admin ).emit( event, data );
     }
+});
 
-    // socket.on( 'not-admin', function ( data ) {
-    //     console.log( data );
-    // })
-
-    // io.emit( 'read-notification-admin', function( adminId ) {
-    //     console.log( adminId );
-    // });
+app.use('/', ( req, res ) => {
+    res.json({
+        'msg': 'Bienvenido al api. - ' + process.env.NAME_PROJECT
+    });
 });
 
 http.listen( app.get( 'port' ), function() {

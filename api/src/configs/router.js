@@ -1,5 +1,5 @@
 module.exports = {
     admin: {
-        serviceRequest: 'http://admin.dpintart.devel/service_request/dashboard/'
+        serviceRequest: process.env.ADMIN_URL + 'service_request/dashboard/'
     },
 };

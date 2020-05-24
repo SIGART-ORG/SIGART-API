@@ -25,6 +25,10 @@ io.on( 'connection', ( socket ) => {
         console.log( 'New admin user connected :', socket.admin );
     });
 
+    socket.on( 'load-user', () => {
+        console.log( 'Conectado web');
+    });
+
     socket.on( 'disconnect', function () {
         console.log( 'User disconnected.' );
     });

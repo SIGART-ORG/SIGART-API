@@ -45,6 +45,8 @@ io.on( 'connection', ( socket ) => {
                 }
             });
             console.log( 'Se registro correctamente las notificacione(s). :)' );
+        }).catch( errors => {
+            console.log( errors );
         });
     });
 

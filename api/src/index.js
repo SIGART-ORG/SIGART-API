@@ -39,12 +39,12 @@ io.on( 'connection', ( socket ) => {
         let notification = customer.sendNotification( msg ).then( data => {
             data.forEach( e => {
                 if( connectedAdmin[e.id] ) {
-                    let lastNotificaction = admin.getLastNotification( e.id ).then( data => {
+                    admin.getLastNotification( e.id ).then( data => {
                         connectedAdmin[e.id].emit( 'read-notification-admin', data );
                     });
                 }
             });
-            console.log( 'Se registro correctamente las notificacione(s). :)');
+            console.log( 'Se registro correctamente las notificacione(s). :)' );
         });
     });
 

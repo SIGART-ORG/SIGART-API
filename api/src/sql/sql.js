@@ -23,7 +23,7 @@ const query = {
         all: `SELECT * FROM ${tblRoles} WHERE status = 1`
     },
     notification: {
-        insert: `INSERT INTO ${tblNotification} ( customerFrom, userTo, dateDelivery, message, url, direction, status, created_at, updated_at) VALUES ( ?, ?, '${dateNow}', ?, ?, 1, 1, '${dateNow}', '${dateNow}' )`
+        insert: `INSERT INTO ${tblNotification} ( customerFrom, userTo, message, url, dateDelivery, direction, status, created_at, updated_at) VALUES ( ?, ?, ?, ?, ?, 1, 1, ?, ? )`
     }
 };
 

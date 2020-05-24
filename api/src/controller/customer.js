@@ -1,6 +1,7 @@
 const QuerySQL = require( '../sql/sql' );
 const DB = require( '../database' );
 const Routers = require( '../configs/router' );
+const moment = require( 'moment' );
 
 module.exports = {
     errors: {},
@@ -15,6 +16,9 @@ module.exports = {
             this.typeEvent = type;
         }
     },
+    getDateNow() {
+        return moment().format( 'YYYY-MM-DD HH:mm:ss' );
+    },
     setCustomerLogin( IdCustomerLogin ) {
         this.customerLogin = IdCustomerLogin;
     },
@@ -22,10 +26,19 @@ module.exports = {
         return new Promise( ( resolve, reject ) => {
             if( this.customerLogin > 0 && this.typeEvent !== '' ) {
                 let _customerLogin = this.customerLogin;
+                let timeNow = this.getDateNow();
                 this.getAllAdmins().then( function( rows ) {
                     rows.forEach( e => {
                         let idUser = e.id;
-                        DB.query( QuerySQL.notification.insert, [_customerLogin, idUser, msg, Routers.admin.serviceRequest], (err, results, fields) =>{
+                        DB.query( QuerySQL.notification.insert, [
+                            _customerLogin,
+                            idUser,
+                            msg,
+                            Routers.admin.serviceRequest,
+                            timeNow,
+                            timeNow,
+                            timeNow
+                        ], (err, results, fields) =>{
                             if (err) {
                                 return console.error( _customerLogin, err.message );
                             }
